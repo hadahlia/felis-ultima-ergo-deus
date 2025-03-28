@@ -4,9 +4,9 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Archevia/Documents/project/country-of-baphomet/isobaphomet/isobaphomet/Content/entity/player_static.png</File>
-    <File>C:/Users/Archevia/Documents/project/country-of-baphomet/isobaphomet/isobaphomet/Content/gui/cursor.png</File>
-    <File>C:/Users/Archevia/Documents/project/country-of-baphomet/isobaphomet/isobaphomet/Content/tile/tile_0.png</File>
+    <File>C:/Users/Archevia/Documents/project/country-of-baphomet/isobaphomet/BaphometClient/Content/entity/player_static.png</File>
+    <File>C:/Users/Archevia/Documents/project/country-of-baphomet/isobaphomet/BaphometClient/Content/gui/cursor.png</File>
+    <File>C:/Users/Archevia/Documents/project/country-of-baphomet/isobaphomet/BaphometClient/Content/tile/tile_0.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
