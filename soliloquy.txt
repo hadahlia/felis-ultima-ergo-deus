@@ -1,0 +1,43 @@
+------------------------------------
+
+HEADER
+
+------------------------------------
+
+PATHS OF THE CHOSEN (PLAYER CLASSES)
+
+------------------------------------
+
+LUNAR MAIDEN:
+	PRACTICING SCHOLAR OF THE ACADEMY. 
+	CONJURE THE GREAT GALAXIES OF THE OLDEN ONES BY SPEAKING IN CELESTIAL TONGUES.
+	
+KITTY BARBARIAN:
+	MORTIFY, EVISCERATE, AND DESECRATE YOUR ENEMIES
+
+DRAGON PRIESTESS:
+	WANDERING WOMAN, TOUCHED BY DRAGONS AND SHUNNED BY COMMUNITY.
+	UTILIZES CRYSTALS, FIRE, AND INNATE FEROCITY
+
+------------------------------------
+
+MYTHOLOGIES
+
+------------------------------------
+
+GREAT BAYER NEBULA:
+	LOCATED IN GRAZNA SUPERVOID
+
+------------------------------------
+
+TODO
+
+------------------------------------
+
+	- INIT PRIMITIVE TILE DATA
+	- READ A WORLD MAP FORMAT THAT SPECIFIES TILE DATA
+	- PLAYER
+	- MENU
+	- DEBUG 
+	
+------------------------------------
