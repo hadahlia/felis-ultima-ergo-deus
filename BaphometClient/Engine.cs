@@ -7,7 +7,7 @@ namespace Baphomet;
 
 public static class Engine
 {
-    public static GraphicsDeviceManager GraphicsDevice;
+    public static GraphicsDeviceManager graphicsDeviceController;
 
     public static Point WindowSize;
 
@@ -22,7 +22,7 @@ public static class Engine
     public static void InitCore(Game game, int windowX, int windowY)
     {
         _game = game;
-        GraphicsDevice = new GraphicsDeviceManager(game);
+        graphicsDeviceController = new GraphicsDeviceManager(game);
         game.Content.RootDirectory = "Content";
 
         game.IsMouseVisible = true;
@@ -58,16 +58,16 @@ public static class Engine
 
     public static void ApplyResolutionSettings(bool fullScreen)
     {
-        GraphicsDevice.IsFullScreen = fullScreen;
+        graphicsDeviceController.IsFullScreen = fullScreen;
 
         Point screenSize = fullScreen
             ? new Point(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height)
             : WindowSize;
 
-        GraphicsDevice.PreferredBackBufferWidth = screenSize.X;
-        GraphicsDevice.PreferredBackBufferHeight = screenSize.Y;
+        graphicsDeviceController.PreferredBackBufferWidth = screenSize.X;
+        graphicsDeviceController.PreferredBackBufferHeight = screenSize.Y;
 
-        GraphicsDevice.ApplyChanges();
+        graphicsDeviceController.ApplyChanges();
 
         _game.GraphicsDevice.Viewport = CalculateViewport(screenSize);
     }
@@ -87,7 +87,7 @@ public static class Engine
 
     public static bool Fullscreen
     {
-        get => GraphicsDevice.IsFullScreen;
+        get => graphicsDeviceController.IsFullScreen;
         set => ApplyResolutionSettings(value);
     }
 

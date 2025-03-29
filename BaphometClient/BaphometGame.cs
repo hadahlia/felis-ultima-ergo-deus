@@ -1,8 +1,10 @@
-﻿using Baphomet.Src;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 //using System.Security.Principal;
+
+using Baphomet.Src;
+using Baphomet.Src.Shapes;
 
 namespace Baphomet;
 
@@ -24,15 +26,18 @@ public class BaphometGame : Game
 
     public IsoTile tile;
 
+    public Texture2D circleTexture;
+
     //temp geometry info
     private VertexPositionColor[] primitiveVerts;
-    private VertexPositionColor[] tingleArrayTest;
+    private VertexPositionColorTexture[] tingleArrayTest;
+    private short[] tingleIndicesArray;
     private VertexBuffer vertexBuffer;
-    //public IndexBuffer indexBuffer;
+    public IndexBuffer indexBuffer;
 
     public BaphometGame()
     {
-        Engine.InitCore(this, 1280, 720);
+        Engine.InitCore(this, 640, 480);
         //_graphics = new GraphicsDeviceManager(this);
         //Content.RootDirectory = "Content";
         IsMouseVisible = true;
@@ -55,6 +60,11 @@ public class BaphometGame : Game
         basicEffect.Alpha = 1.0f;
         basicEffect.VertexColorEnabled = true;
         basicEffect.LightingEnabled = false;
+        basicEffect.TextureEnabled = true;
+
+        circleTexture = Shapes.CreateCircle(GraphicsDevice, 160, Color.White);
+
+        basicEffect.Texture = circleTexture;
 
         //primitive verts
         //primitiveVerts = new VertexPositionColor[4];
@@ -67,36 +77,57 @@ public class BaphometGame : Game
         //right face
 
         //well how abt a triangle? pretty please
-        tingleArrayTest = new VertexPositionColor[3];
+        tingleArrayTest = new VertexPositionColorTexture[6];
 
-        tingleArrayTest[0] = new VertexPositionColor(new Vector3(0f,40f,0f), Color.Red);
-        tingleArrayTest[1] = new VertexPositionColor(new Vector3(-40f, -40f, 0f), Color.Green);
-        tingleArrayTest[2] = new VertexPositionColor(new Vector3(40f, -40f, 0f), Color.Blue);
+        tingleArrayTest[0] = new VertexPositionColorTexture(new Vector3(-80f,80f,0f), Color.Red, new Vector2(0f, -1f)); //top left
+        tingleArrayTest[1] = new VertexPositionColorTexture(new Vector3(-80f, -80f, 0f), Color.Green, new Vector2(0f,0f)); //bottom left
+        tingleArrayTest[2] = new VertexPositionColorTexture(new Vector3(80f, -80f, 0f), Color.Blue, new Vector2(1f,0f)); //bottom right
+
+        tingleArrayTest[3] = new VertexPositionColorTexture(new Vector3(80f, 80f, 0f), Color.AntiqueWhite, new Vector2(1f, -1f)); // top right
+        tingleArrayTest[4] = new VertexPositionColorTexture(new Vector3(-80f, 80f, 0f), Color.Red, new Vector2(0f,-1f)); // top left
+        tingleArrayTest[5] = new VertexPositionColorTexture(new Vector3(80f, -80f, 0f), Color.Blue, new Vector2(1f,0f)); // bottom right
 
         //vertexBuffer = new VertexBuffer(GraphicsDevice, typeof(VertexPositionColor), 4, BufferUsage.WriteOnly);
         //vertexBuffer.SetData<VertexPositionColor>(primitiveVerts);
-        vertexBuffer = new VertexBuffer(GraphicsDevice, typeof(VertexPositionColor), 3, BufferUsage.WriteOnly);
-        vertexBuffer.SetData<VertexPositionColor>(tingleArrayTest);
+        vertexBuffer = new VertexBuffer(GraphicsDevice, typeof(VertexPositionColorTexture), 6, BufferUsage.WriteOnly);
+        vertexBuffer.SetData<VertexPositionColorTexture>(tingleArrayTest);
 
-        //indexBuffer = new IndexBuffer(GraphicsDevice, typeof(IndexBuffer), 6, BufferUsage.WriteOnly);
+        //indices shit
 
-        
+        tingleIndicesArray = new short[6];
+
+        tingleIndicesArray[0] = 0;
+        tingleIndicesArray[1] = 3;
+        tingleIndicesArray[2] = 2;
+
+        tingleIndicesArray[3] = 1;
+        tingleIndicesArray[4] = 0;
+        tingleIndicesArray[5] = 2;
+
+        indexBuffer = new IndexBuffer(GraphicsDevice, typeof(short), tingleIndicesArray.Length, BufferUsage.WriteOnly);
+        indexBuffer.SetData<short>(tingleIndicesArray);
+
+        GraphicsDevice.SetVertexBuffer(vertexBuffer);
+        GraphicsDevice.Indices = indexBuffer;
     }
 
-        protected override void LoadContent()
-        {
-            //tile = new IsoTile();
-            //_spriteBatch = new SpriteBatch(GraphicsDevice);
+    protected override void LoadContent()
+    {
+        //tile = new IsoTile();
+        //_spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            //_texture = Content.Load<Texture2D>("entity/player_static");
+        //_texture = Content.Load<Texture2D>("entity/player_static");
+        
 
-            //Texture2D player_texture = Content.Load<Texture2D>("entity/player_static");
-            //Texture2D tile_texture = Content.Load<Texture2D>("tile/tile_0");
-            //p_sprite = new ScaledSprite(player_texture, Vector2.Zero);
-            //t_sprite = new ScaledSprite(tile_texture, Vector2.One);
+        //Texture2D cTexture = Engine.Content.Load<Texture2D>(circl)
 
-            // TODO: use this.Content to load your game content here
-        }
+        //Texture2D player_texture = Content.Load<Texture2D>("entity/player_static");
+        //Texture2D tile_texture = Content.Load<Texture2D>("tile/tile_0");
+        //p_sprite = new ScaledSprite(player_texture, Vector2.Zero);
+        //t_sprite = new ScaledSprite(tile_texture, Vector2.One);
+
+        // TODO: use this.Content to load your game content here
+    }
 
         protected override void Update(GameTime gameTime)
         {
@@ -115,19 +146,30 @@ public class BaphometGame : Game
         basicEffect.World = cammy.WorldMatrix;
 
         GraphicsDevice.Clear(Color.Black);
-        GraphicsDevice.SetVertexBuffer(vertexBuffer);
 
+        GraphicsDevice.Textures[0] = circleTexture;
 
         RasterizerState rasterState = new RasterizerState();
         rasterState.CullMode = CullMode.None;
         GraphicsDevice.RasterizerState = rasterState;
+        GraphicsDevice.BlendState = BlendState.AlphaBlend;
 
         
 
         foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
         {
             pass.Apply();
-            GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 1);
+            //GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 2);
+            GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, 2);
+            //GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColorTexture>(
+            //    PrimitiveType.TriangleList,
+            //    tingleArrayTest,
+            //    0,
+            //    6,
+            //    tingleIndicesArray,
+            //    0,
+            //    2
+            //);
         }
 
         // TODO: Add your drawing code here
