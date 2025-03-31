@@ -17,12 +17,14 @@ public class OrthoCamera
     public int ViewportWidth { get; set; }
     public int ViewportHeight { get; set; }
 
-    public OrthoCamera()
+    public OrthoCamera(int width, int height)
     {
-        position = new Vector3(0f,1f,100f);
-        target = new Vector3(0f, 0f, -1f);
+        ViewportWidth = width;
+        ViewportHeight = height;
+        position = new Vector3(10f,10f,-10f);
+        target = new Vector3(0f, 1f, 0f);
 
-        
+        //position =
         //position = Vector3.Transform(position, rotationX);
         //position = Vector3.Transform(position, rotationY);
     }
@@ -48,7 +50,11 @@ public class OrthoCamera
     {
         get
         {
-            return Matrix.CreateWorld(target, Vector3.Forward, Vector3.Up); //* Matrix.CreateTranslation(new Vector3(0,0,0));
+            //Matrix worldMat = ;
+            //return Matrix.CreateWorld(target, Vector3.Forward, Vector3.Up); //* Matrix.CreateTranslation(new Vector3(0,0,0));
+            return RotationMatrix * Matrix.CreateWorld(target, Vector3.Forward, Vector3.Up);
+            //return Matrix.Identity * RotationMatrix;
+
         }
     }
 
@@ -56,8 +62,8 @@ public class OrthoCamera
     {
         get
         {
-            //return Matrix.CreateRotationX(MathHelper.ToRadians(60f)) *
-            //    Matrix.CreateRotationY(MathHelper.ToRadians(45f)) *
+            //return Matrix.CreateRotationX(MathHelper.ToRadians(-54.736f)) *
+            //    Matrix.CreateRotationY(MathHelper.ToRadians(-45f)) *
             //    Matrix.CreateRotationZ(0f);
 
             return Matrix.CreateRotationX(MathHelper.ToRadians(0f)) *
