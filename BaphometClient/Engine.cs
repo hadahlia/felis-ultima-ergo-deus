@@ -18,7 +18,9 @@ public static class Engine
 
     public static Vector2 _scaledViewPort;
     public static Matrix _spriteScaleFactor;
-    //public static GameState
+    
+    public static GameStateManager gameState { get; } = new GameStateManager();
+
     public static void InitCore(Game game, int windowX, int windowY)
     {
         _game = game;

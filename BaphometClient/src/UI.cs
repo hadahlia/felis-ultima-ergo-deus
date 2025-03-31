@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Baphomet.Src.Interfaces;
+
 
 namespace Baphomet.Src;
 

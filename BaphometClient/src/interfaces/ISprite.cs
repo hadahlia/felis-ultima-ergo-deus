@@ -6,7 +6,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Baphomet.Src;
+namespace Baphomet.Src.Interfaces;
 
 public interface ISprite : IRenderNode
 {

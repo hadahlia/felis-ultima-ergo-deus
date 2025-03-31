@@ -48,11 +48,13 @@ GREAT BAYER NEBULA:
 
 ------------------------------------
 
-	- INIT PRIMITIVE TILE DATA
+	- ABSTRACT GUMMY CUBOID
 	- READ A WORLD MAP FORMAT THAT SPECIFIES TILE DATA
 	- PLAYER
 	- MENU
 	- DEBUG 
 	- INPUTHELPER
+	- GAME STATE MANAGEMENT
+	- CURSOR ICON
 	
 ------------------------------------

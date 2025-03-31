@@ -207,19 +207,20 @@ public class BaphometGame : Game
         // TODO: use this.Content to load your game content here
     }
 
-        protected override void Update(GameTime gameTime)
-        {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+    protected override void Update(GameTime gameTime)
+    {
+        InputHelper.Update();
+            
+        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            Exit();
 
-            // TODO: Add your update logic here
+        // TODO: Add your update logic here
 
-            base.Update(gameTime);
-        }
+        base.Update(gameTime);
+    }
 
     protected override void Draw(GameTime gameTime)
     {
-
         //var t2 = Matrix.CreateTranslation(0f, 0f, 0f);
         //var r1 = Matrix.CreateRotationX(0f);
         //var r2 = Matrix.CreateRotationY(0f);
@@ -240,8 +241,6 @@ public class BaphometGame : Game
         rasterState.CullMode = CullMode.None;
         GraphicsDevice.RasterizerState = rasterState;
         GraphicsDevice.BlendState = BlendState.AlphaBlend;
-
-        
 
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
